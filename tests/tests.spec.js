@@ -46,7 +46,7 @@ describe("Document's HEAD tests", () => {
     const metaViewport = await page
       .locator("head")
       .locator(
-        'meta[name="viewport"][content*="width=device-width"][content*="initial-scale=1.0"]'
+        'meta[name="viewport"][content*="width=device-width"][content*="initial-scale=1.0"]',
       )
       .count();
     expect(metaViewport).toBeGreaterThan(0);
@@ -54,7 +54,9 @@ describe("Document's HEAD tests", () => {
 
   // Make sure the Document's title meets the requirement
   test.describe("The page title tests", () => {
-    test("The document title should be `Sample project` - case sensitive", async ({ page }) => {
+    test("The document title should be `Sample project` - case sensitive", async ({
+      page,
+    }) => {
       await expect(page).toHaveTitle("Sample project");
     });
   });
@@ -66,7 +68,7 @@ describe("Body contents test", () => {
     const count = await page.evaluate(() => {
       return Array.from(document.body.children).filter(
         (node) =>
-          !["SCRIPT", "NOSCRIPT", "LINK", "STYLE"].includes(node.tagName)
+          !["SCRIPT", "NOSCRIPT", "LINK", "STYLE"].includes(node.tagName),
       ).length;
     });
     expect(count).toBeGreaterThanOrEqual(2);
@@ -103,7 +105,7 @@ describe("Body contents test", () => {
     expect(
       await paragraphTextLength.then((content) => {
         return cleanArrFromEmptyItems(content?.trim().split(" ")).length;
-      })
+      }),
     ).toBeGreaterThanOrEqual(20);
   });
 });
